@@ -1,0 +1,25 @@
+sort1 uses: Bubble sort
+
+How do you know?: Because its the one that's fast on sorted, slow on reversed, slow on random.
+
+Because Bubble sort has a "no swaps" check so if a full pass goes by without swapping anything, it stops. Sorted input triggers that on the very first pass, so it's just O(n).
+
+In contrast,Reversed input is the opposite: every single pair is wrong, so it has to swap on every comparison across every pass so its full O(n²).
+
+Random input falls in between but still lands at O(n²) in practice, just with a smaller constant factor than reversed.
+
+
+sort2 uses: Merge sort
+
+How do you know?: Because It's not that merge sort is faster on all of them, it's that it's the same speed on all of them. It always splits in half, always merges back, always does the same amount of work. O(n log n) regardless of whether the input is sorted, random, or reversed.
+
+So compared to bubble sort, which swings wildly from O(n) to O(n²) depending on the input, merge sort just... doesn't care. No best case, no worst case. That consistency is exactly why it looks like the fastest across the board in your benchmark because it's never the slow one.
+
+
+sort3 uses: Selection sort
+
+How do you know?: Because its the same reason it's flat as merge sort is flat because selection sort always scans the entire unsorted portion to find the minimum, every single pass. No early exit, no "oh, this is already sorted, I'm done" shortcut. So whether the input is sorted, random, or reversed, it does exactly n(n−1)/2 comparisons. Same work, every time.
+
+On random and reversed files it lands at roughly the same speed as bubble sort because both are O(n²) with the same comparison count — the constant factors are close enough that they blur together in a benchmark.
+
+On sorted files, that's where the gap shows: bubble sort bails after one pass (O(n)), while selection sort keeps scanning for a minimum that's already in the right place, grinding through the full O(n²) anyway. It has no idea the list is already sorted.
